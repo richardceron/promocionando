@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./promocionandoTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <div class="left-50">
+            <h:form prependId="false" id="panelForma">
+                <p:messages/>
+                <h3>
+                    ¡ Solitita información !
+                </h3>
+                <div class="break"></div>
+
+                Nombre
+                <br/>
+                <p:inputText required="true" requiredMessage="Nombre requerido"
+                             value="#{buscadorController.cotizacionContacto.nombre}"/>
+                <br/>
+                Teléfono
+                <br/>
+                <p:inputText required="true" requiredMessage="Teléfono requerido"
+                             value="#{buscadorController.cotizacionContacto.telefono}"/>
+                <br/>
+                Email
+                <br/>
+                <p:inputText required="true" requiredMessage="Email requerido"
+                             value="#{buscadorController.cotizacionContacto.email}"/>
+                <br/>
+
+                <br/>
+                Comentarios
+                <br/>
+                <h:inputTextarea style="resize: none; width: 250px; height: 80px;" required="true" requiredMessage="Email requerido"
+                                 value="#{buscadorController.cotizacionContacto.comentarios}"/>
+                <br/>
+
+                <p:commandLink actionListener="#{buscadorController.enviarSolicitudCoontactoGeneral}" value="Enviar"
+                               styleClass="btn-agregar"
+                               process="@form" update="@form"/>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

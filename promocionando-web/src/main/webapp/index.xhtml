@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./promocionandoTemplate.xhtml">
+
+    <ui:define name="heads">
+        <script type="text/javascript" src="resources/simple_slider/js/jquery.slides.min.js"></script>
+
+        <link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/simple_slider/css/example.css"/>
+        <link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/simple_slider/css/font-awesome.min.css"/>
+        <link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/simple_slider/css/style.css"/>
+    </ui:define>
+
+    <ui:define name="content">
+        <div id="slides">
+            <img src="#{facesContext.externalContext.requestContextPath}/resources/images/slider/01.jpg"/>
+            <img src="#{facesContext.externalContext.requestContextPath}/resources/images/slider/02.jpg"/>
+            <img src="#{facesContext.externalContext.requestContextPath}/resources/images/slider/03.jpg"/>
+            <img src="#{facesContext.externalContext.requestContextPath}/resources/images/slider/04.jpg"/>
+            <a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left icon-large"></i></a>
+            <a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right icon-large"></i></a>
+        </div>
+        
+        <div class="break"></div>
+        
+        <img src="resources/images/barra-novedades.jpg"/>
+        
+        <div class="break"></div>
+        
+        <img class="banner" src="resources/images/banners/banner-01.png"/>
+        <img class="banner" src="resources/images/banners/banner-02.png"/>
+        <img class="banner" src="resources/images/banners/banner-03.png"/>
+        <img class="banner" src="resources/images/banners/banner-04.png"/>
+        
+        <div class="break"></div>
+
+        <script>
+            $(function () {
+                $('#slides').slidesjs({
+                    width: 950,
+                    height: 600,
+                    navigation: false
+                });
+            });
+        </script>
+    </ui:define>
+
+</ui:composition>

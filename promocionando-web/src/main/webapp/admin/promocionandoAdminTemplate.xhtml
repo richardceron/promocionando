@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+
+        <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/admin/resources/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/admin/resources/css/sb-admin.css"/>
+        <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/admin/resources/css/font-awesome.min.css"/>
+
+        <title>Promocionando Admin</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="wrapper">
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">SB Admin</a>
+                </div>
+                <!-- Top Menu Items -->
+                <ul class="nav navbar-right top-nav">                   
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> #{usuarioController.usuario.nombre} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">                            
+                            <li>
+                                <h:form>
+                                    <h:commandLink actionListener="#{usuarioController.logout}">
+                                        <i class="fa fa-fw fa-power-off"></i> Salir
+                                    </h:commandLink>
+                                </h:form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav side-nav">
+                        <li class="#{view.viewId eq '/admin/solicitudes.xhtml' ? 'active' : ''}">
+                            <a href="#{facesContext.externalContext.requestContextPath}/faces/admin/solicitudes.xhtml">
+                                <i class="fa fa-fw fa-comments"></i> Solicitud de Cotización</a>
+                        </li>
+                        <li class="#{view.viewId eq '/admin/productos.xhtml' ? 'active' : ''}">
+                            <a href="#{facesContext.externalContext.requestContextPath}/faces/admin/productos.xhtml">
+                                <i class="fa fa-fw fa-th"></i> Productos</a>
+                        </li>
+                        <li class="#{view.viewId eq '/admin/categorias.xhtml' ? 'active' : ''}">
+                            <a href="#{facesContext.externalContext.requestContextPath}/faces/admin/categorias.xhtml">
+                                <i class="fa fa-fw fa-th-list"></i> Categorias
+                            </a>
+                        </li>
+                        <li class="#{view.viewId eq '/admin/materiales.xhtml' ? 'active' : ''}">
+                            <a href="#{facesContext.externalContext.requestContextPath}/faces/admin/materiales.xhtml">
+                                <i class="fa fa-fw fa-codepen"></i> Materiales
+                            </a>
+                        </li>  
+                        <li class="#{view.viewId eq '/admin/colores.xhtml' ? 'active' : ''}">
+                            <a href="#{facesContext.externalContext.requestContextPath}/faces/admin/colores.xhtml">
+                                <i class="fa fa-fw fa-codepen"></i> Colores
+                            </a>
+                        </li>  
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+
+            <div id="page-wrapper">
+
+                <div class="container-fluid">                  
+                    <ui:insert name="content">
+
+                    </ui:insert>                    
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- /#page-wrapper -->
+
+        </div>
+        
+        <h:form>
+            <p:remoteCommand actionListener="#{categoriaController.initLists}" name="refreshLists"/>
+        </h:form>
+        
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/admin/resources/js/bootstrap.min.js"></script>
+        
+        <script>
+            $(function () {
+                refreshLists();
+            });
+        </script>
+        
+    </h:body>
+
+</html>

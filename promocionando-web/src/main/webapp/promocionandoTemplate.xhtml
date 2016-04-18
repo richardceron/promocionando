@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/functions.js"></script>
+
+        <ui:insert name="heads"></ui:insert>
+
+        <link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/default.css"/>
+        <link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/cssLayout.css"/>
+        <link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/responsiveLayout.css"/>
+
+        <link rel="icon" type="image/png" href="#{facesContext.externalContext.requestContextPath}/resources/images/favicon.png"/>
+
+        <title>Promocionando</title>
+    </h:head>
+
+    <h:body>                
+
+        <div id="full-top">
+            <div id="top">
+                <a href="#{facesContext.externalContext.requestContextPath}/">
+                    INICIO
+                </a>
+                <a href="#{facesContext.externalContext.requestContextPath}/faces/misionVision.xhtml">
+                    QUINES SOMOS
+                </a>
+                <a href="#">
+                    CATALOGOS
+                </a>
+                <a href="#{facesContext.externalContext.requestContextPath}/faces/nuestros_clientes.xhtml">
+                    NUESTROS CLIENTES
+                </a>
+                <a target="_Blank" href="https://goo.gl/maps/dDPSvVYgSzn">
+                    UBICACIÓN
+                </a>
+                <a href="#{facesContext.externalContext.requestContextPath}/faces/contacto.xhtml">
+                    CONTACTO
+                </a>
+            </div>
+        </div>
+
+        <div id="full-content-logo-buscador">
+            <div id="content-logo-buscador">
+                <a id="logo" href="#{facesContext.externalContext.requestContextPath}/">
+                    <img src="#{facesContext.externalContext.requestContextPath}/resources/images/logo_promocionando.png"/>
+                </a>
+
+                <div id="content-buscador">
+                    <div id="buscador-contacto">
+                        <a href="tel:5570301712">
+                            <img src="#{facesContext.externalContext.requestContextPath}/resources/images/icon-tel.png"/>
+                            (55) 7030 1712
+                        </a>
+                        <a href="mailto:contacto@promocionando.com.mx">
+                            <img src="#{facesContext.externalContext.requestContextPath}/resources/images/icono-contacto.png"/>
+                            contacto@promocionando.com.mx
+                        </a>
+
+                        <div class="break show-in-mobile"></div>
+                    </div>                                        
+
+                    <div id="buscador">
+                        <h:form prependId="false" onkeypress="if (event.keyCode == 13) {
+                                    document.getElementById('search-button').click();
+                                    return false;
+                                }">
+                            <div id="wrapper-input-buscador">
+                                <p:autoComplete id="input-buscador" value="#{buscadorController.fitroBusqueda}" completeMethod="#{buscadorController.completeText}" />
+                                <div class="break show-in-mobile"></div>
+                                <h:selectOneMenu id="selector-buscador" converter="CategoriaConverter" value="#{buscadorController.categoriaBusqueda}">                                    
+                                    <f:selectItems value="#{buscadorController.allCategorias}" var="c" itemValue="#{c}" itemLabel="#{c.nombre}"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <h:commandLink id="search-button" actionListener="#{buscadorController.indexSearch}"/>
+                            <div class="break show-in-mobile"></div>
+
+                            <a id="mis-productos-mobile" href="#{facesContext.externalContext.requestContextPath}/faces/misProductos.xhtml">
+                                <img src="#{facesContext.externalContext.requestContextPath}/resources/images/icono-car.png"/>
+                                Tus Productos
+                            </a>
+                            
+                            <div class="break show-in-mobile"></div>
+                        </h:form>
+                    </div>                                        
+                </div> 
+
+                <div id="content-car">
+                    <a href="#{facesContext.externalContext.requestContextPath}/faces/misProductos.xhtml">
+                        <img src="#{facesContext.externalContext.requestContextPath}/resources/images/icono-car.png"/>
+                        Tus Productos
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="main-content">
+            <div id="content-categorias">
+                <div>
+                    <img src="#{facesContext.externalContext.requestContextPath}/resources/images/main-white.png"/>
+                    CATEGORIAS
+                </div>
+                <ui:repeat value="#{buscadorController.allCategorias}" var="cat">
+                    <a href="#{facesContext.externalContext.requestContextPath}/faces/productos.xhtml?search_type=only_cat&amp;object_id=#{cat.id}">
+                        <span>
+                            #{cat.nombre}
+                        </span>
+                    </a>
+                </ui:repeat>
+
+                <img class="image-categoria" src="resources/images/promo-01.jpg"/>
+                <img class="image-categoria" src="resources/images/promo-02.jpg"/>
+            </div>
+            <div id="content">
+                <ui:insert name="content">
+
+                </ui:insert>
+            </div>
+            <div class="break"></div>
+        </div>    
+
+        <div id="full-bottom">
+            <div id="bottom">
+                <div id="redes">
+                    <img src="#{facesContext.externalContext.requestContextPath}/resources/images/barra-redes-footer.png"/>
+                </div>
+
+                <div id="direccion">
+                    <img src="#{facesContext.externalContext.requestContextPath}/resources/images/logo-chico-blanco.png"/>
+                    <div class="break"></div>
+                    Av. La Morena # 658 Int 2a, Col Narvarte<br/>
+                    CP. 03020, Delg. Benito Juárez, México DF.<br/>
+                    Tel: (55) 7030 1712 / 13<br/>
+                    e-Mail: contacto@promocionando.com.mx
+                </div>
+
+                <div class="break">
+                    <h:form>
+                        <p:remoteCommand actionListener="#{buscadorController.initList}" name="refresh"/>
+                    </h:form>
+                </div>
+
+                <div id="legales">
+                    <a href="#{facesContext.externalContext.requestContextPath}/faces/aviso_provacidad.xhtml">
+                        Aviso de Privacidad
+                    </a>                    
+                    <br/>
+                    © 2015 Promocionando S.A. de C.V. Todos los Derechos Reservados Copyright ©
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                refresh();
+            });
+        </script>
+    </h:body>
+
+</html>

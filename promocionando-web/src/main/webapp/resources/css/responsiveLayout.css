@@ -1,0 +1,186 @@
+@media only screen and (max-width: 840px){
+
+    body, html{
+        overflow-x: hidden;
+    }
+
+    #full-top{
+        display: none;
+    }
+
+    #full-content-logo-buscador{
+        width: 100%;
+        height: auto;
+    }
+
+    #content-logo-buscador{
+        width: 100%;
+        height: auto;
+        margin: 0;
+        padding: 0px;
+    }
+
+    #logo{
+        display: block;
+        height: 80px;
+        width: 100%;
+        float: none;
+        clear: both;
+        text-align: center;
+    }
+
+    #logo img{
+        width: 100%;
+        height: auto;
+    }
+
+    #content-buscador{
+        height: auto;
+        width: 100%;
+        float: none;
+        margin-left: 0px;
+    }
+
+    #buscador-contacto{
+        width: 100%;
+        height: auto; 
+        clear: both;
+    }
+
+    #buscador-contacto a{
+        display: block;
+        width: 50%;
+        height: auto;
+        color: #000000;
+        font-size: 8px;
+        padding-bottom: 0px; 
+        float: left;
+        text-align: center;
+        padding: 0px;
+    }
+
+    #buscador-contacto img{
+        vertical-align: auto;
+    }
+
+    #buscador{
+        width: 100%;
+        height: auto;
+        clear: both;
+        padding-top: 0px; 
+    }
+
+    #wrapper-input-buscador{
+        width: 90%;
+        float: none;
+        border-right: #CCCCCC solid 2px;
+        border-radius: 5px;
+        margin-left: 5%;
+    }
+
+    #input-buscador{
+        width: 100%!important;
+        height: 30px;
+        float: none;
+    }
+
+    #wrapper-input-buscador .ui-inputfield{
+        width: 100%!important;
+    }
+
+    #selector-buscador{
+        width: 85%;
+        height: 30px;
+        float: left;
+        border: #CCCCCC solid 1px;
+    }
+
+    #search-button{
+        width: 15%;
+        height: 32px;
+    }
+
+    #content-car{
+        display: none;
+    }
+
+    #mis-productos-mobile{
+        display: block;
+    }
+
+    #main-content{
+        width: 100%;
+        height: auto;
+        margin: 0;
+    }
+
+    .left-50{
+        width: 100%;
+        float: none;
+    }
+
+    #content-categorias{
+        display: none;
+    }
+
+    #content{
+        width: 100%;
+        float: none;
+    }
+
+    .banner{
+        width: 100%;
+        height: auto;
+        float: none; 
+        clear: both;
+    }
+
+    #full-bottom{
+        width: 100%;
+        height: auto;
+    }
+
+    #bottom{
+        width: 100%;
+        height: auto;
+        padding-top: 10px;
+        margin: 0;
+    }
+
+    #redes{
+        display: block;
+        float: none;
+        width: 100%;
+        height: auto;
+        clear: both;
+        text-align: center;
+    }
+
+    #direccion{
+        width: 100%;;
+        height: auto;
+        float: none;
+        clear: both;
+        text-align: center;
+    }
+
+    #legales{
+        width: 100%;
+        margin: 0;
+    }
+
+    .show-in-mobile{
+        display: block!important;
+    }
+
+    .hide-in-mobile{
+        display: none!important;
+    }
+
+    #content-gallery, #content-info{
+        width: 100%;
+        float: none;
+        clear: both;
+    }
+
+}

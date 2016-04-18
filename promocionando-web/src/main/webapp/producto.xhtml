@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./promocionandoTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <f:metadata>        
+        <f:viewParam name="object_id" value="#{buscadorController.object_id}" />
+        <f:event type="preRenderView" listener="#{buscadorController.detailProducto}" />        
+    </f:metadata>
+
+    <ui:define name="heads">
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/okzoom.min.js"></script>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div id="content-gallery">
+            <img id="principal-image" src="#{facesContext.externalContext.requestContextPath}/ObtenerFoto?id=#{buscadorController.producto.imagenes[0].id}"/>
+            <div class="break"></div>
+            <ui:repeat value="#{buscadorController.producto.imagenes}" var="i">
+                <img class="item-gallery" onmouseover="changeImage(this);" src="#{facesContext.externalContext.requestContextPath}/ObtenerFoto?id=#{i.id}"/>
+            </ui:repeat>            
+        </div>
+
+        <div id="content-info">
+            <h:form prependId="false">
+                <p:messages id="messages"/>
+                <span style="color: #ed1c24; font-size: 18px;">
+                    #{buscadorController.producto.nombre}
+                </span>
+
+                <div class="break"></div>
+                <div class="break"></div>
+                
+                <b>
+                    Descripción
+                </b>
+                <div class="break"></div>                
+                <hr/>
+                <div class="break"></div>       
+                <b>
+                    Material
+                </b>
+                <h:panelGroup rendered="#{buscadorController.producto.material ne null}">
+                    #{buscadorController.producto.material.nombre}
+                </h:panelGroup>
+                <div class="break"></div>
+                
+                <b>
+                    Medidas
+                </b>
+                #{buscadorController.producto.tamano}
+                <div class="break"></div>
+                
+                <b>
+                    Empaque
+                </b>
+                #{buscadorController.producto.cantidadEmpaque}
+                <div class="break"></div>
+                
+                <b>
+                    Técnica de Imppresión
+                </b>
+                #{buscadorController.producto.tecnicaImpresion}
+                <div class="break"></div>
+                
+                <b>
+                    Cantidad
+                </b>
+                <h:inputText id="cantidad" value="#{buscadorController.cantidadProducto}" required="true" requiredMessage="Cantidad del producto requerida"/>
+                <h:message for="cantidad"/>
+                <div class="break"></div>
+                <div class="break"></div>
+                
+                <p:commandLink rendered="#{buscadorController.isInMyProducts(buscadorController.producto)}"
+                               actionListener="#{buscadorController.removeProductToCoti(buscadorController.producto)}"
+                               styleClass="btn-agregar"
+                               process="@this" update="@form">
+                    Remover
+                </p:commandLink>
+
+                <p:commandLink rendered="#{!buscadorController.isInMyProducts(buscadorController.producto)}"
+                               actionListener="#{buscadorController.addProductToCoti}"
+                               styleClass="btn-agregar"
+                               update="@form">
+                    Agregar
+                </p:commandLink>
+            </h:form>
+        </div>
+
+        <div class="break"></div>
+
+        <script type="text/javascript">
+            function changeImage(object) {
+                var image = document.getElementById("principal-image");
+                image.src = object.src;
+            }
+
+            $(function () {
+                $('#principal-image').okzoom({
+                    width: 280,
+                    height: 280,
+                    round: true,
+                    background: "#fff",
+                    backgroundRepeat: "no-repeat",
+                    shadow: "0 0 5px #000",
+                    border: "1px solid black"
+                });
+            });
+        </script>
+
+    </ui:define>
+
+</ui:composition>

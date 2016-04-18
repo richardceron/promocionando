@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./promocionandoTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <div style="display: block; float: none; width: 350px; height: auto; padding: 10px; margin: 0 auto; border: #000 solid 1px; border-radius: 10px;">
+            <h:form>
+                <p:messages id="messages"/>
+                <table>
+                    <tr>
+                        <td>
+                            Email
+                        </td>
+                        <td>
+                            <h:inputText value="#{usuarioController.email}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Password
+                        </td>
+                        <td>
+                            <h:inputSecret value="#{usuarioController.password}"/>
+                        </td>
+                    </tr>
+                </table>                                 
+                <h:commandButton action="#{usuarioController.login}" value="Ingresar"/><br/>                
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

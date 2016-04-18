@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./promocionandoTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">   
+
+    <ui:define name="content">
+        <h:form>
+            <p:messages id="messages"/>
+
+            <center>
+                <b>
+                    Mis productos
+                </b>
+            </center>
+
+            <div class="left-50">                
+                <ui:repeat value="#{buscadorController.misProductos}" var="p">                                
+                    <a style="color: #000000;" href="#{facesContext.externalContext.requestContextPath}/faces/producto.xhtml?object_id=#{p.producto.id}">
+                        <img align="middle" style="max-width: 100px; height: auto;" src="#{facesContext.externalContext.requestContextPath}/ObtenerFoto?id=#{p.producto.imagenes[0].id}"/>
+                        #{p.producto.nombre} 
+                    </a>               
+
+                    <p:commandLink style="color: #ed1c24" actionListener="#{buscadorController.removeProductToCoti(p)}"
+                                   process="@this" update="@form">
+                        Remover
+                    </p:commandLink>
+                    <div class="break"></div>
+                </ui:repeat>                
+            </div>
+
+            <div class="left-50">
+                <h:panelGroup style="text-align: center;" id="panelForma" rendered="#{buscadorController.misProductos.size() gt 0}">
+                    <h3>
+                        ¡ Solitita información !
+                    </h3>
+                    <div class="break"></div>
+
+                    Nombre
+                    <p:inputText required="true" requiredMessage="Nombre requerido"
+                                 value="#{buscadorController.cotizacion.nombre}"/>
+                    <br/>
+                    Teléfono
+                    <p:inputText required="true" requiredMessage="Teléfono requerido"
+                                 value="#{buscadorController.cotizacion.telefono}"/>
+                    <br/>
+                    Email
+                    <p:inputText required="true" requiredMessage="Email requerido"
+                                 value="#{buscadorController.cotizacion.email}"/>
+                    <br/>
+
+                    <p:commandLink actionListener="#{buscadorController.crearCotizacion}" value="Enviar"
+                                   styleClass="btn-agregar"
+                                   process="@form" update="@form"/>
+                </h:panelGroup>
+            </div>            
+
+            <div class="break"></div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

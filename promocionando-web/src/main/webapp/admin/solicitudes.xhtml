@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./promocionandoAdminTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form>
+            <p:dataTable value="#{cotizacionesController.cotizaciones}" var="c"
+                         selection="#{cotizacionesController.cotizacion}" selectionMode="single" rowKey="#{c.id}">
+
+                <p:ajax event="rowSelect" update="@form" />
+
+                <p:column headerText="Nombre" filterBy="#{c.nombre}" filterMatchMode="contains" sortBy="#{c.nombre}">
+                    #{c.nombre}
+                </p:column>
+
+                <p:column headerText="Email" filterBy="#{c.email}" filterMatchMode="contains" sortBy="#{c.email}">
+                    #{c.email}
+                </p:column>
+
+                <p:column headerText="Fecha" sortBy="#{c.fecha}">
+                    <h:outputText value="#{c.fecha}" >
+                        <f:convertDateTime pattern="dd-MM-yyyy" />
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+
+            <h:panelGroup id="panelCotizacion">
+                Nombre: #{cotizacionesController.cotizacion.nombre}<br/>
+                Email: #{cotizacionesController.cotizacion.email}<br/>
+                Teléfono: #{cotizacionesController.cotizacion.telefono}<br/>
+
+                <div class="break"></div>
+
+                Productos
+                <div class="break"></div>
+                <ui:repeat value="#{cotizacionesController.cotizacion.productos}" var="p">
+                    <b>
+                        #{p.producto.nombre} Cantidad #{p.cantidad}
+                    </b>
+                    <br/>
+                    <ui:repeat value="#{p.producto.imagenes}" var="i">
+                        <a target="_Blank" href="#{facesContext.externalContext.requestContextPath}/ObtenerFoto?id=#{i.id}">
+                            <img style="max-width: 150px; height: auto;" src="#{facesContext.externalContext.requestContextPath}/ObtenerFoto?id=#{i.id}"/>
+                        </a>
+                    </ui:repeat>
+                    
+                    <div class="break"></div>
+
+                </ui:repeat>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

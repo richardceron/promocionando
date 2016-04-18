@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./promocionandoTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata>        
+        <f:viewParam name="search_type" value="#{buscadorController.search_type}" />
+        <f:viewParam name="filter" value="#{buscadorController.fitroBusqueda}" />
+        <f:viewParam name="object_id" value="#{buscadorController.object_id}" />
+        <f:event type="preRenderView" listener="#{buscadorController.search}" />        
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:form>
+            <p:dataGrid value="#{buscadorController.productos}" var="p"
+                        columns="4" paginator="true" layout="grid"
+                        rows="20">
+                <div class="item-broducto">
+                    <a href="#{facesContext.externalContext.requestContextPath}/faces/producto.xhtml?object_id=#{p.id}">
+                        <b>
+                            #{p.clave}
+                        </b>
+                        <img src="#{facesContext.externalContext.requestContextPath}/ObtenerFoto?id=#{p.imagenes[0].id}"/>                                        
+                    </a>
+                </div>
+            </p:dataGrid>            
+        </h:form>
+    </ui:define>
+
+</ui:composition>
