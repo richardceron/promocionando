@@ -55,7 +55,7 @@
             <h:form id="formaListadoColores">
                 <p:dataTable value="#{categoriaController.colores}" var="item"
                              selection="#{categoriaController.color}" selectionMode="single"
-                             rowKey="#{item.id}">
+                             rowKey="#{item.id}" paginator="true" rows="20">
 
                     <p:ajax event="rowSelect" listener="#{categoriaController.setEditColor(true)}"
                             update="formaNuevoColor" />

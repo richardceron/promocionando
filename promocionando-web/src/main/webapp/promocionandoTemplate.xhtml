@@ -75,6 +75,11 @@
                                     return false;
                                 }">
                             <div id="wrapper-input-buscador">
+
+                                <p:autoComplete id="input-buscador" value="#{buscadorController.fitroBusqueda}" completeMethod="#{autoCompleteView.completeText}">
+                                    <p:ajax event="itemSelect" listener="#{autoCompleteView.onItemSelect}" update="msgs" />
+                                </p:autoComplete>
+
                                 <p:autoComplete id="input-buscador" value="#{buscadorController.fitroBusqueda}" completeMethod="#{buscadorController.completeText}" />
                                 <div class="break show-in-mobile"></div>
                                 <h:selectOneMenu id="selector-buscador" converter="CategoriaConverter" value="#{buscadorController.categoriaBusqueda}">                                    
@@ -88,7 +93,7 @@
                                 <img src="#{facesContext.externalContext.requestContextPath}/resources/images/icono-car.png"/>
                                 Tus Productos
                             </a>
-                            
+
                             <div class="break show-in-mobile"></div>
                         </h:form>
                     </div>                                        

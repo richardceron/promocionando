@@ -99,22 +99,31 @@
                     <br/>
                     <br/>
 
-                    <h:panelGroup id="panelCategoria">
+                    <b class="required">
+                        Material <i>*</i>
+                    </b>
+                    <br/>
+                    <p:selectOneMenu value="#{productoController.producto.material}" converter="MaterialConverter"
+                                     required="true" requiredMessage="Material requerida"
+                                     filter="true" filterMatchMode="contains">                 
+                        <f:selectItems value="#{categoriaController.materiales}" var="mat" itemLabel="#{mat.nombre}" itemValue="#{mat}"/>
+                    </p:selectOneMenu>
 
+                    <br/>
+                    <br/>   
+                    
+                    <b class="required">
+                        Color <i>*</i>
+                    </b>
+                    <br/>
+                    <p:selectOneMenu value="#{productoController.producto.material}" converter="MaterialConverter"
+                                     required="true" requiredMessage="Material requerida"
+                                     filter="true" filterMatchMode="contains">                 
+                        <f:selectItems value="#{categoriaController.materiales}" var="mat" itemLabel="#{mat.nombre}" itemValue="#{mat}"/>
+                    </p:selectOneMenu>
 
-                        <b class="required">
-                            Material <i>*</i>
-                        </b>
-                        <br/>
-                        <p:selectOneMenu value="#{productoController.producto.material}" converter="MaterialConverter"
-                                         required="true" requiredMessage="Material requerida"
-                                         filter="true" filterMatchMode="contains">                 
-                            <f:selectItems value="#{categoriaController.materiales}" var="mat" itemLabel="#{mat.nombre}" itemValue="#{mat}"/>
-                        </p:selectOneMenu>
-
-                        <br/>
-                        <br/>                                              
-                    </h:panelGroup>
+                    <br/>
+                    <br/>   
 
                     <div class="form-group">
                         <label class="required">Técnica Impresión</label>
