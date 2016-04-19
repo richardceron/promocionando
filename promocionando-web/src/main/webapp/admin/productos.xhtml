@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-lg-6">
 
-                <h:form>
+                <h:form id="formaListadoProductos">
                     <p:dataTable value="#{productoController.productos}" var="p"
                                  selectionMode="single" selection="#{productoController.producto}" rowKey="#{p.id}"
                                  paginator="true" rows="20">
@@ -112,14 +112,13 @@
                     <br/>
                     <br/>   
                     
-                    <b class="required">
-                        Color <i>*</i>
+                    <b>
+                        Color
                     </b>
                     <br/>
-                    <p:selectOneMenu value="#{productoController.producto.material}" converter="MaterialConverter"
-                                     required="true" requiredMessage="Material requerida"
+                    <p:selectOneMenu value="#{productoController.producto.color}" converter="ColorConverter"                                     
                                      filter="true" filterMatchMode="contains">                 
-                        <f:selectItems value="#{categoriaController.materiales}" var="mat" itemLabel="#{mat.nombre}" itemValue="#{mat}"/>
+                        <f:selectItems value="#{categoriaController.colores}" var="col" itemLabel="#{col.nombre}" itemValue="#{col}"/>
                     </p:selectOneMenu>
 
                     <br/>
@@ -149,7 +148,7 @@
                                      paginator="true" rows="5"
                                      emptyMessage="No hay registros">
                             <p:column headerText="Archivo">
-                                <a target="_Blank" href="#{facesContext.externalContext.requestContextPath}/ObtenerFoto?id=#{i.id}">
+                                <a target="_Blank" href="#{facesContext.externalContext.requestContextPath}/ObtenerFoto?id=#{a.id}">
                                     #{a.fileName}
                                 </a>                                
                             </p:column>
@@ -165,12 +164,12 @@
                     <div class="separador"></div>
 
                     <p:commandButton rendered="#{productoController.editarProducto eq false}"
-                                     styleClass="btn btn-primary" process="formaNuevoProducto"
+                                     styleClass="btn btn-primary" process="formaNuevoProducto, formaListadoProductos"
                                      update="formaNuevoProducto"
                                      actionListener="#{productoController.crearProducto}" value="Crear"/>
 
                     <p:commandButton rendered="#{productoController.editarProducto eq true}"
-                                     styleClass="btn btn-primary" process="formaNuevoProducto"
+                                     styleClass="btn btn-primary" process="formaNuevoProducto, formaListadoProductos"
                                      update="formaNuevoProducto"
                                      actionListener="#{productoController.actualizarProducto}" value="Guardar Cambios"/>
 

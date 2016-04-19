@@ -66,6 +66,7 @@ public class ProductoController implements Serializable {
         try {
             psb.actualizarProducto(producto);
             desHabilitarEdicionProducto();
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto editado con éxito", ""));
         } catch (Exception e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al actualizar el producto", e);
         }
@@ -107,6 +108,7 @@ public class ProductoController implements Serializable {
     public void desHabilitarEdicionProducto(){
         editarProducto = false;
         producto = new Producto();
+        productos = psb.getProductos();
     }
 
     /**

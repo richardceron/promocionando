@@ -153,5 +153,16 @@ public class BuscadorSessionBean implements Serializable {
             return null;
         }
     }
+    
+    public Categoria getCategoriaOfProduct(String name){
+        try {
+            Query q = em.createQuery("SELECT c FROM Categoria c, Producto p WHERE p.categoria = c AND p.nombre = :name");
+            q.setParameter("name", name);
+            return (Categoria) q.getSingleResult();
+        } catch (Exception e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al traer la categoria del producto por nombre de producto", e);
+            return null;
+        }
+    }
 
 }

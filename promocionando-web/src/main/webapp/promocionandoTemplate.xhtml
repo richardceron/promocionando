@@ -76,15 +76,16 @@
                                 }">
                             <div id="wrapper-input-buscador">
 
-                                <p:autoComplete id="input-buscador" value="#{buscadorController.fitroBusqueda}" completeMethod="#{autoCompleteView.completeText}">
-                                    <p:ajax event="itemSelect" listener="#{autoCompleteView.onItemSelect}" update="msgs" />
+                                <p:autoComplete id="input-buscador" value="#{buscadorController.fitroBusqueda}" completeMethod="#{buscadorController.completeText}">
+                                    <p:ajax process="@this" event="itemSelect" listener="#{buscadorController.onItemSelect}" update="panelCat" />
                                 </p:autoComplete>
-
-                                <p:autoComplete id="input-buscador" value="#{buscadorController.fitroBusqueda}" completeMethod="#{buscadorController.completeText}" />
+                                
                                 <div class="break show-in-mobile"></div>
-                                <h:selectOneMenu id="selector-buscador" converter="CategoriaConverter" value="#{buscadorController.categoriaBusqueda}">                                    
-                                    <f:selectItems value="#{buscadorController.allCategorias}" var="c" itemValue="#{c}" itemLabel="#{c.nombre}"/>
-                                </h:selectOneMenu>
+                                <h:panelGroup id="panelCat">
+                                    <h:selectOneMenu id="selector-buscador" converter="CategoriaConverter" value="#{buscadorController.categoriaBusqueda}">                                    
+                                        <f:selectItems value="#{buscadorController.allCategorias}" var="c" itemValue="#{c}" itemLabel="#{c.nombre}"/>
+                                    </h:selectOneMenu>
+                                </h:panelGroup>
                             </div>
                             <h:commandLink id="search-button" actionListener="#{buscadorController.indexSearch}"/>
                             <div class="break show-in-mobile"></div>
@@ -121,10 +122,7 @@
                             #{cat.nombre}
                         </span>
                     </a>
-                </ui:repeat>
-
-                <img class="image-categoria" src="resources/images/promo-01.jpg"/>
-                <img class="image-categoria" src="resources/images/promo-02.jpg"/>
+                </ui:repeat>                
             </div>
             <div id="content">
                 <ui:insert name="content">

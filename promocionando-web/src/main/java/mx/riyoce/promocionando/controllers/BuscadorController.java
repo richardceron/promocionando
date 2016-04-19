@@ -37,6 +37,7 @@ import mx.riyoce.promocionando.entities.Usuario;
 import mx.riyoce.promocionando.sessions.BuscadorSessionBean;
 import mx.riyoce.promocionando.sessions.CategoriaSessionBean;
 import mx.riyoce.promocionando.sessions.ProductoSessionBean;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -194,6 +195,7 @@ public class BuscadorController implements Serializable {
             if (search_type.equalsIgnoreCase("only_cat")) {
                 productos = bsb.getProductosByCategoria(csb.getCategoriaById(object_id));
             }
+            fitroBusqueda = "";            
         } catch (Exception e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al traer los productos", e);
         }
@@ -238,6 +240,12 @@ public class BuscadorController implements Serializable {
 
     public List<String> completeText(String query) {
         return bsb.getAutoComplete(query);
+    }
+    
+    public void onItemSelect(SelectEvent event) {
+        String name = event.getObject().toString();
+        System.out.println(name);
+        this.categoriaBusqueda = bsb.getCategoriaOfProduct(name);
     }
 
     /**
