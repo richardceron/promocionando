@@ -40,6 +40,9 @@
                     <p:commandButton rendered="#{categoriaController.editMaterial eq true}"
                                      styleClass="btn btn-primary" process="formaNuevoMaterial"
                                      update="formaNuevoMaterial, formaListadoMateriales" actionListener="#{categoriaController.actualizarMaterial}" value="Actualizar"/>
+                    
+                    <p:commandButton styleClass="btn btn-primary" process="@this"
+                                     update="formaNuevoMaterial, formaListadoMateriales" actionListener="#{categoriaController.deshabilitarEdicionMaterial}" value="Cancelar"/>
                 </h:form> 
             </div>                
         </div> 

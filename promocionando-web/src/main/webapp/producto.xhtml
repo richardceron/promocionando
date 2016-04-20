@@ -38,6 +38,8 @@
                 <b>
                     Descripción
                 </b>
+                <br/>
+                #{buscadorController.producto.descripcion}
                 <div class="break"></div>                
                 <hr/>
                 <div class="break"></div>       
@@ -47,6 +49,13 @@
                 <h:panelGroup rendered="#{buscadorController.producto.material ne null}">
                     #{buscadorController.producto.material.nombre}
                 </h:panelGroup>
+                <div class="break"></div>
+                
+                <b>
+                	Color
+                </b>
+                <br/>
+                #{buscadorController.producto.color.nombre}
                 <div class="break"></div>
                 
                 <b>

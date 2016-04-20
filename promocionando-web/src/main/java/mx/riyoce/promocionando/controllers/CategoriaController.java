@@ -35,13 +35,13 @@ public class CategoriaController implements Serializable {
 
     private Categoria categoria;
     private Material material;
-    private Color color;    
+    private Color color;
 
     private List<Categoria> categorias;
     private List<Material> materiales;
-    private List<Color> colores;    
+    private List<Color> colores;
 
-    private DualListModel<Material> materialesCategoria;    
+    private DualListModel<Material> materialesCategoria;
     private DualListModel<Color> coloresCategoria;
 
     private boolean editMaterial;
@@ -76,26 +76,26 @@ public class CategoriaController implements Serializable {
 
     /* Inician métodos para categorias */
     public void crearCategoria() {
-        try {          
+        try {
             csb.crearCategoria(categoria);
             categoria = new Categoria();
             this.categorias = csb.getCategorias();
             materialesCategoria = new DualListModel<>(materiales, new LinkedList<Material>());
-            coloresCategoria = new DualListModel<>(colores, new LinkedList<Color>());            
+            coloresCategoria = new DualListModel<>(colores, new LinkedList<Color>());
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Categoría creado con éxito", ""));
         } catch (Exception e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al crear la categoria", e);
         }
     }
 
-    public void habilitarEdicionCategoria() {       
+    public void habilitarEdicionCategoria() {
         editCategoria = true;
     }
 
     public void deshabilitarEdicionCategoria() {
         categoria = new Categoria();
         this.materialesCategoria = new DualListModel<>(materiales, new LinkedList<Material>());
-        this.coloresCategoria = new DualListModel<>(colores, new LinkedList<Color>());        
+        this.coloresCategoria = new DualListModel<>(colores, new LinkedList<Color>());
         editCategoria = false;
     }
 
@@ -106,7 +106,7 @@ public class CategoriaController implements Serializable {
             this.categorias = csb.getCategorias();
             editCategoria = false;
             materialesCategoria = new DualListModel<>(materiales, new LinkedList<Material>());
-            coloresCategoria = new DualListModel<>(colores, new LinkedList<Color>());            
+            coloresCategoria = new DualListModel<>(colores, new LinkedList<Color>());
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Categoría actualizada con éxito", ""));
         } catch (Exception e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al crear la categoria", e);
@@ -129,13 +129,17 @@ public class CategoriaController implements Serializable {
     public void actualizarMaterial() {
         try {
             csb.actualizarMaterial(material);
-            material = new Material();
-            this.materiales = csb.getMateriales();
-            editMaterial = false;
+            deshabilitarEdicionMaterial();
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Material actualizado con éxitoo", ""));
         } catch (Exception e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al crear el material", e);
         }
+    }
+
+    public void deshabilitarEdicionMaterial() {
+        material = new Material();
+        materiales = csb.getMateriales();
+        editMaterial = false;
     }
     /* Terminan métodos para materiales */
 
@@ -154,15 +158,19 @@ public class CategoriaController implements Serializable {
     public void actualizarColor() {
         try {
             csb.actualizarColor(color);
-            color = new Color();
-            this.colores = csb.getColores();
-            editColor = false;
+            deshabilitarEdicionColor();
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Color actuzalido con éxito", ""));
         } catch (Exception e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al actualizar el color", e);
         }
     }
-    /* Terminan métodos para colores */   
+
+    public void deshabilitarEdicionColor() {
+        color = new Color();
+        colores = csb.getColores();
+        editColor = false;
+    }
+    /* Terminan métodos para colores */
 
     /**
      * @return the categoria
@@ -204,7 +212,7 @@ public class CategoriaController implements Serializable {
      */
     public void setColor(Color color) {
         this.color = color;
-    }   
+    }
 
     /**
      * @return the categorias
@@ -246,7 +254,7 @@ public class CategoriaController implements Serializable {
      */
     public void setColores(List<Color> colores) {
         this.colores = colores;
-    } 
+    }
 
     /**
      * @return the editMaterial
@@ -323,6 +331,6 @@ public class CategoriaController implements Serializable {
      */
     public DualListModel<Color> getColoresCategoria() {
         return coloresCategoria;
-    }        
+    }
 
 }

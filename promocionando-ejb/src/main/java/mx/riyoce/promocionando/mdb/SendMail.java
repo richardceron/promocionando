@@ -68,7 +68,7 @@ public class SendMail implements MessageListener {
                 Transport transport = mailSession.getTransport();
                 MimeMessage forward = new MimeMessage(mailSession);
                 forward.setFrom(new InternetAddress(m.getMailDe()));
-                forward.setSubject(m.getAcerca());
+                forward.setSubject(m.getAcerca(), "UTF-8");
 
                 InternetHeaders headers = new InternetHeaders();
                 headers.addHeader("Content-type", "text/html; charset=UTF-8");

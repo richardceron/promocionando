@@ -39,6 +39,9 @@
                     <p:commandButton rendered="#{categoriaController.editColor eq true}"
                                      styleClass="btn btn-primary" process="formaNuevoColor"
                                      update="formaNuevoColor, formaListadoColores" actionListener="#{categoriaController.actualizarColor}" value="Actualizar"/>
+                    
+                    <p:commandButton styleClass="btn btn-primary" process="@this"
+                                     update="formaNuevoColor, formaListadoColores" actionListener="#{categoriaController.deshabilitarEdicionColor}" value="Cancelar"/>
                 </h:form> 
             </div>                
         </div> 
