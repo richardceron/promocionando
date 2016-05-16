@@ -7,6 +7,7 @@ package mx.riyoce.promocionando.controllers;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -35,7 +36,7 @@ public class ProductoController implements Serializable {
 
     private Producto producto;
     private List<Producto> productos;
-    
+
     private boolean editarProducto;
 
     public ProductoController() {
@@ -50,19 +51,28 @@ public class ProductoController implements Serializable {
     public void crearProducto() {
         try {
             if (producto.getImagenes().size() > 0) {
+                Random rand = new Random();
+                int n = rand.nextInt(50) + 1;
+                String clave = producto.getNombre().replaceAll(" ", "_");
+                clave = clave.toLowerCase();
+                clave = clave.concat("_");
+                clave += n;
+                
+                producto.setClave(clave);
+                
                 psb.crearProducto(producto);
                 producto = new Producto();
                 productos = psb.getProductos();
                 FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto creado con éxito", ""));
-            } else{
+            } else {
                 FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_WARN, "Debes cargar al menos una imagen del producto", ""));
             }
         } catch (Exception e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al crear el producto", e);
         }
     }
-    
-    public void actualizarProducto(){
+
+    public void actualizarProducto() {
         try {
             psb.actualizarProducto(producto);
             desHabilitarEdicionProducto();
@@ -91,24 +101,33 @@ public class ProductoController implements Serializable {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al cargar el archivo", e);
         }
     }
-    
-    public void removeFileFromProduct(ImagenProducto img){
-        try {            
+
+    public void removeFileFromProduct(ImagenProducto img) {
+        try {
             producto.getImagenes().remove(img);
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Imagen eliminada con éxito", ""));
         } catch (Exception e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al eliminar la imagen del producto", e);
         }
     }
-    
-    public void habilitarEdicionProducto(){
+
+    public void habilitarEdicionProducto() {
         editarProducto = true;
     }
-    
-    public void desHabilitarEdicionProducto(){
+
+    public void desHabilitarEdicionProducto() {
         editarProducto = false;
         producto = new Producto();
         productos = psb.getProductos();
+    }
+    
+    public List<Producto> getNovedades(){
+        try {
+            return psb.getProductosNovedad();
+        } catch (Exception e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al traer los productos por novedad", e);
+            return null;
+        }
     }
 
     /**

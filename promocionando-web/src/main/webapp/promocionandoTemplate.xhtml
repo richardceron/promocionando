@@ -33,10 +33,7 @@
                 </a>
                 <a href="#{facesContext.externalContext.requestContextPath}/faces/misionVision.xhtml">
                     QUINES SOMOS
-                </a>
-                <a href="#">
-                    CATALOGOS
-                </a>
+                </a>                
                 <a href="#{facesContext.externalContext.requestContextPath}/faces/nuestros_clientes.xhtml">
                     NUESTROS CLIENTES
                 </a>
@@ -45,6 +42,9 @@
                 </a>
                 <a href="#{facesContext.externalContext.requestContextPath}/faces/contacto.xhtml">
                     CONTACTO
+                </a>
+                <a href="#{facesContext.externalContext.requestContextPath}/faces/login.xhtml">
+                    EXTRANET
                 </a>
             </div>
         </div>
@@ -76,16 +76,11 @@
                                 }">
                             <div id="wrapper-input-buscador">
 
-                                <p:autoComplete id="input-buscador" value="#{buscadorController.fitroBusqueda}" completeMethod="#{buscadorController.completeText}">
-                                    <p:ajax process="@this" event="itemSelect" listener="#{buscadorController.onItemSelect}" update="panelCat" />
-                                </p:autoComplete>
+                                <p:inputText id="input-buscador" value="#{buscadorController.fitroBusqueda}">
+                                    <p:ajax event="keyup" process="@this"/>
+                                </p:inputText>
                                 
-                                <div class="break show-in-mobile"></div>
-                                <h:panelGroup id="panelCat">
-                                    <h:selectOneMenu id="selector-buscador" converter="CategoriaConverter" value="#{buscadorController.categoriaBusqueda}">                                    
-                                        <f:selectItems value="#{buscadorController.allCategorias}" var="c" itemValue="#{c}" itemLabel="#{c.nombre}"/>
-                                    </h:selectOneMenu>
-                                </h:panelGroup>
+                                <div class="break show-in-mobile"></div>                                
                             </div>
                             <h:commandLink id="search-button" actionListener="#{buscadorController.indexSearch}"/>
                             <div class="break show-in-mobile"></div>
@@ -135,7 +130,7 @@
         <div id="full-bottom">
             <div id="bottom">
                 <div id="redes">
-                    <img src="#{facesContext.externalContext.requestContextPath}/resources/images/barra-redes-footer.png"/>
+                    <img style="cursor: pointer;" onclick="location.href='https://www.facebook.com/Grupo-Promocionando-615057178642248/';" src="#{facesContext.externalContext.requestContextPath}/resources/images/barra-redes-footer.png"/>
                 </div>
 
                 <div id="direccion">

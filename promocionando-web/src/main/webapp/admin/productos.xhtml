@@ -26,6 +26,10 @@
                         <p:ajax event="rowSelect" listener="#{productoController.habilitarEdicionProducto}"
                                 update="formaNuevoProducto" />
 
+                        <p:column headerText="Clave" filterMatchMode="contains" filterBy="#{p.clave}" sortBy="#{p.clave}">
+                            #{p.clave}
+                        </p:column>
+                        
                         <p:column headerText="Nombre" filterMatchMode="contains" filterBy="#{p.nombre}" sortBy="#{p.nombre}">
                             #{p.nombre}
                         </p:column>

@@ -131,6 +131,17 @@ public class BuscadorSessionBean implements Serializable {
         }
     }
     
+    public List<Producto> getProductosByName(String name) {
+        try {
+            Query q = em.createQuery("SELECT DISTINCT lp FROM Producto lp WHERE lp.categoria.nombre Like :filtro ORDER By lp.nombre ASC");
+            q.setParameter("filtro", "%" + name + "%");
+            return q.getResultList();
+        } catch (Exception e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al traer los productos por nombre y categoriar", e);
+            return null;
+        }
+    }
+    
     public List<Producto> getProductosByCategoria(Categoria categoria) {
         try {
             Query q = em.createQuery("SELECT lp FROM Producto lp WHERE lp.fechaVigencia >= :hoy AND lp.categoria = :categoria ORDER BY lp.fechaPublicacion DESC");

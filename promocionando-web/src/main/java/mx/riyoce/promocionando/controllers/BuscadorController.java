@@ -176,7 +176,7 @@ public class BuscadorController implements Serializable {
 
     public void indexSearch() {
         try {
-            String url = "/promocionando-web/faces/productos.xhtml?search_type=name_and_cat&object_id=" + categoriaBusqueda.getId();
+            String url = "/promocionando-web/faces/productos.xhtml?search_type=name";
             FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         } catch (Exception e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al traer los productos del buscador", e);
@@ -185,12 +185,10 @@ public class BuscadorController implements Serializable {
 
     public void search() {
         try {
-            if (search_type.equalsIgnoreCase("name_and_cat")) {
+            if (search_type.equalsIgnoreCase("name")) {
                 if (fitroBusqueda != null) {
-                    productos = bsb.getProductosByNameAndCategoria(fitroBusqueda, categoriaBusqueda);
-                } else {
-                    productos = bsb.getProductosByNameAndCategoria("", categoriaBusqueda);
-                }
+                    productos = bsb.getProductosByName(fitroBusqueda);
+                } 
             }
             if (search_type.equalsIgnoreCase("only_cat")) {
                 productos = bsb.getProductosByCategoria(csb.getCategoriaById(object_id));
