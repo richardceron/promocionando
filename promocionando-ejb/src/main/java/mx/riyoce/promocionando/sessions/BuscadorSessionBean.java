@@ -17,6 +17,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import mx.riyoce.promocionando.entities.Categoria;
+import mx.riyoce.promocionando.entities.ContactoGeneral;
 import mx.riyoce.promocionando.entities.Correo;
 import mx.riyoce.promocionando.entities.Cotizacion;
 import mx.riyoce.promocionando.entities.ItemCotizacion;
@@ -61,7 +62,7 @@ public class BuscadorSessionBean implements Serializable {
                 cuerpo += "Productos:<br/>";
                 
                 for(ItemCotizacion p : c.getProductos()){
-                    cuerpo += p.getProducto().getNombre() + "<br/>";
+                    cuerpo += p.getProducto().getNombre() +" ("+p.getCantidad()+ ")<br/>";
                 }
                 
                 m.setCuerpo(cuerpo);
@@ -74,10 +75,10 @@ public class BuscadorSessionBean implements Serializable {
         return lc;
     }
     
-    public List<Correo> enviarContactoGeneral(Cotizacion c){
+    public List<Correo> enviarContactoGeneral(ContactoGeneral cg){
         List<Correo> lc = new LinkedList<>();
         try {
-            em.persist(c);
+            em.persist(cg);
             List<Usuario> lu = em.createQuery("SELECT lu FROM Usuario lu").getResultList();
             for(Usuario u : lu){
                 Correo m = new Correo();
@@ -93,22 +94,31 @@ public class BuscadorSessionBean implements Serializable {
                 String cuerpo = "Han solicitado información general.<br/>";
                 cuerpo += "Datos de contacto:<br/>";
                 cuerpo += "Nombre: ";
-                cuerpo += c.getNombre()+"<br/>";
+                cuerpo += cg.getNombre()+"<br/>";
                 cuerpo += "Email: ";
-                cuerpo += c.getEmail()+"<br/>";
+                cuerpo += cg.getEmail()+"<br/>";
                 cuerpo += "Teléfono: ";
-                cuerpo += c.getTelefono()+"<br/>"; 
-                cuerpo += "Comentarios: ";
-                cuerpo += c.getComentarios()+"<br/>"; 
+                cuerpo += cg.getPhone()+"<br/>"; 
+                cuerpo += "Comentarios: <br/Z";
+                cuerpo += cg.getComments()+"<br/>"; 
                 
                 m.setCuerpo(cuerpo);
                 
                 lc.add(m);
             }
         } catch (Exception e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al crear la cotización", e);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al crear o enviar el contacto general", e);
         }
         return lc;
+    }
+    
+    public List<ContactoGeneral> getContactosGenerales(){        
+        try {
+            return em.createQuery("SELECT DISTINCT lc FROM ContactoGeneral lc ORDER BY lc.fecha DESC").getResultList();
+        } catch (Exception e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al obtener los contactos generales", e);
+            return null;
+        }
     }
 
     public List<Producto> getProductosByNameAndCategoria(String name, Categoria categoria) {

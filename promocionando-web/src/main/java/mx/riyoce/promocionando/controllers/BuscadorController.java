@@ -28,6 +28,7 @@ import javax.jms.Queue;
 import javax.jms.Session;
 import mx.riyoce.promocionando.entities.Categoria;
 import mx.riyoce.promocionando.entities.Color;
+import mx.riyoce.promocionando.entities.ContactoGeneral;
 import mx.riyoce.promocionando.entities.Correo;
 import mx.riyoce.promocionando.entities.Cotizacion;
 import mx.riyoce.promocionando.entities.ItemCotizacion;
@@ -81,7 +82,10 @@ public class BuscadorController implements Serializable {
 
     private Cotizacion cotizacion;
     
-    private Cotizacion cotizacionContacto;
+    private ContactoGeneral contactoGeneral;
+    
+    private ContactoGeneral currentContactoGeneral;
+    private List<ContactoGeneral> contactosGenerales;
 
     private String search_type;
     private long object_id;
@@ -101,7 +105,9 @@ public class BuscadorController implements Serializable {
         usuario = new Usuario();
 
         cotizacion = new Cotizacion();
-        cotizacionContacto = new Cotizacion();
+        contactoGeneral = new ContactoGeneral();
+        currentContactoGeneral = new ContactoGeneral();
+        contactosGenerales = new LinkedList<>();
     }
 
     @PostConstruct
@@ -109,11 +115,11 @@ public class BuscadorController implements Serializable {
         initList();
     }
 
-    public void initList() {
-        System.out.println("refrescando listas");
+    public void initList() {        
         allCategorias = cc.getCategorias();        
         allMateriales = cc.getMateriales();
         allcolores = cc.getColores();
+        contactosGenerales = bsb.getContactosGenerales();
     }
 
     public void addProductToCoti() {
@@ -163,15 +169,20 @@ public class BuscadorController implements Serializable {
     
     public void enviarSolicitudCoontactoGeneral() {
         try {            
-            List<Correo> lc = bsb.enviarContactoGeneral(cotizacionContacto);
+            List<Correo> lc = bsb.enviarContactoGeneral(contactoGeneral);
             for (Correo lc1 : lc) {
                 sendJMSMessageToMensajesQueue(lc1);
             }            
-            cotizacionContacto = new Cotizacion();            
+            contactoGeneral = new ContactoGeneral();
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitud enviada con éxito", ""));
         } catch (Exception e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al crear la cotizacion", e);
         }
+    }     
+    
+    public void cancelViewContacto(){
+        currentContactoGeneral = new ContactoGeneral();
+        contactosGenerales = bsb.getContactosGenerales();
     }
 
     public void indexSearch() {
@@ -454,20 +465,48 @@ public class BuscadorController implements Serializable {
      */
     public void setCantidadProducto(int cantidadProducto) {
         this.cantidadProducto = cantidadProducto;
+    }  
+
+    /**
+     * @return the contactoGeneral
+     */
+    public ContactoGeneral getContactoGeneral() {
+        return contactoGeneral;
     }
 
     /**
-     * @return the cotizacionContacto
+     * @param contactoGeneral the contactoGeneral to set
      */
-    public Cotizacion getCotizacionContacto() {
-        return cotizacionContacto;
+    public void setContactoGeneral(ContactoGeneral contactoGeneral) {
+        this.contactoGeneral = contactoGeneral;
     }
 
     /**
-     * @param cotizacionContacto the cotizacionContacto to set
+     * @return the currentContactoGeneral
      */
-    public void setCotizacionContacto(Cotizacion cotizacionContacto) {
-        this.cotizacionContacto = cotizacionContacto;
+    public ContactoGeneral getCurrentContactoGeneral() {
+        return currentContactoGeneral;
+    }
+
+    /**
+     * @param currentContactoGeneral the currentContactoGeneral to set
+     */
+    public void setCurrentContactoGeneral(ContactoGeneral currentContactoGeneral) {
+        this.currentContactoGeneral = currentContactoGeneral;
+    }
+
+    /**
+     * @return the contactosGenerales
+     */
+    public List<ContactoGeneral> getContactosGenerales() {
+        return contactosGenerales;
+    }
+
+    /**
+     * @param contactosGenerales the contactosGenerales to set
+     */
+    public void setContactosGenerales(List<ContactoGeneral> contactosGenerales) {
+        this.contactosGenerales = contactosGenerales;
     }
 
 }

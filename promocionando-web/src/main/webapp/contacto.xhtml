@@ -17,24 +17,24 @@
                 Nombre
                 <br/>
                 <p:inputText required="true" requiredMessage="Nombre requerido"
-                             value="#{buscadorController.cotizacionContacto.nombre}"/>
+                             value="#{buscadorController.contactoGeneral.nombre}"/>
                 <br/>
                 Teléfono
                 <br/>
                 <p:inputText required="true" requiredMessage="Teléfono requerido"
-                             value="#{buscadorController.cotizacionContacto.telefono}"/>
+                             value="#{buscadorController.contactoGeneral.phone}"/>
                 <br/>
                 Email
                 <br/>
                 <p:inputText required="true" requiredMessage="Email requerido"
-                             value="#{buscadorController.cotizacionContacto.email}"/>
+                             value="#{buscadorController.contactoGeneral.email}"/>
                 <br/>
 
                 <br/>
                 Comentarios
                 <br/>
                 <h:inputTextarea style="resize: none; width: 250px; height: 80px;" required="true" requiredMessage="Email requerido"
-                                 value="#{buscadorController.cotizacionContacto.comentarios}"/>
+                                 value="#{buscadorController.contactoGeneral.comments}"/>
                 <br/>
 
                 <p:commandLink actionListener="#{buscadorController.enviarSolicitudCoontactoGeneral}" value="Enviar"

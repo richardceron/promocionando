@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./promocionandoAdminTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form prependId="false" id="listadoContacto">
+            <b>
+                Nombre
+            </b>
+            #{buscadorController.currentContactoGeneral.nombre}            
+            <br/>
+
+            <b>
+                Email
+            </b>
+            #{buscadorController.currentContactoGeneral.email}            
+            <br/>
+
+            <b>
+                Teléfono
+            </b>
+            #{buscadorController.currentContactoGeneral.phone}            
+            <br/>
+
+            <b>
+                Comentarios
+            </b>
+            #{buscadorController.currentContactoGeneral.comments}            
+            <br/>
+            <br/>
+            <p:commandButton styleClass="btn btn-primary"
+                             update="listadoContacto, formaContacto" action="#{buscadorController.cancelViewContacto}" value="Limpiar"/>
+        </h:form>
+
+        <div class="break"></div>
+
+        <h:form prependId="false" id="formaContacto">
+            <p:dataTable value="#{buscadorController.contactosGenerales}" var="c"                         
+                         rowKey="#{c.id}"
+                         selectionMode="single" selection="#{buscadorController.currentContactoGeneral}"
+                         emptyMessage="No hay solicitudes">
+
+                <p:ajax event="rowSelect" update="listadoContacto" />
+
+                <p:column headerText="Nombre" filterBy="#{c.nombre}" filterMatchMode="contains" sortBy="#{c.nombre}">
+                    #{c.nombre}
+                </p:column>
+
+                <p:column headerText="Email" filterBy="#{c.email}" filterMatchMode="contains" sortBy="#{c.email}">
+                    #{c.email}
+                </p:column>
+
+                <p:column headerText="Fecha" sortBy="#{c.fecha}">
+                    <h:outputText value="#{c.fecha}" >
+                        <f:convertDateTime pattern="dd-MM-yyyy HH:mm" />
+                    </h:outputText>
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>
