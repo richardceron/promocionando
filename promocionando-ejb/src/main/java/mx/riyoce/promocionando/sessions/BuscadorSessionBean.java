@@ -133,7 +133,7 @@ public class BuscadorSessionBean implements Serializable {
     
     public List<Producto> getProductosByName(String name) {
         try {
-            Query q = em.createQuery("SELECT DISTINCT lp FROM Producto lp WHERE lp.categoria.nombre Like :filtro ORDER By lp.nombre ASC");
+            Query q = em.createQuery("SELECT DISTINCT lp FROM Producto lp WHERE (lp.categoria.nombre LIKE :filtro OR lp.clave LIKE :filtro) ORDER By lp.nombre ASC");
             q.setParameter("filtro", "%" + name + "%");
             return q.getResultList();
         } catch (Exception e) {
