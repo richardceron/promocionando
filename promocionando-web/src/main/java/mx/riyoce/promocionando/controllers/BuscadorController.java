@@ -127,6 +127,7 @@ public class BuscadorController implements Serializable {
             ItemCotizacion i = new ItemCotizacion();
             i.setProducto(producto);
             i.setCantidad(cantidadProducto);
+            i.setCotizacion(cotizacion);
             misProductos.add(i);
             cantidadProducto = 0;
         } else {
